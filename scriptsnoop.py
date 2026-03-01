@@ -546,7 +546,8 @@ def list_rules():
     print(f"{'═'*80}")
     for rule in RISKY_PATTERNS:
         sev = rule['severity']
-        print(f"  {rule['id']:<8} {color(f\"{sev:<10}\", sev)} {rule['category']:<22} {rule['description']}")
+        sev_padded = f"{sev:<10}"
+        print(f"  {rule['id']:<8} {color(sev_padded, sev)} {rule['category']:<22} {rule['description']}")
     print(f"{'═'*80}\n")
 
 
