@@ -55,7 +55,7 @@ Built for developers, security auditors, and DevSecOps pipelines.
 Simply run the script and it will prompt you for a folder path:
 
 ```bash
-python scriptsnoop.py
+python3 scriptsnoop.py
 ```
 
 You will see:
@@ -71,18 +71,52 @@ Press **Enter** to scan the current folder, or type a path like `/home/user/mypr
 
 **Scan a specific directory:**
 ```bash
-python scriptsnoop.py --path ./myproject
+python3 scriptsnoop.py --path ./myproject
 ```
 
 **Short form using `-p`:**
 ```bash
-python scriptsnoop.py -p ./myproject
+python3 scriptsnoop.py -p ./myproject
 ```
 
 **Scan the current directory:**
 ```bash
-python scriptsnoop.py --path .
+python3 scriptsnoop.py --path .
 ```
+
+---
+
+## 📸 Output Examples
+
+### Terminal Output
+
+Color-coded findings grouped by severity — CRITICAL in red, HIGH in orange, MEDIUM in yellow, LOW in cyan — followed by a scan summary table.
+
+![Terminal Output](terminal_screenshot.png)
+
+---
+
+### HTML Report
+
+A standalone browser dashboard generated with `--output report.html`. Includes severity stat cards at the top and a full sortable findings table. No internet connection required to view it.
+
+```bash
+python3 scriptsnoop.py --path ./myproject --output report.html
+```
+
+![HTML Report](html_report_screenshot.png)
+
+---
+
+### JSON Output
+
+Structured JSON with full scan metadata and every finding as an object — pipe into other tools, dashboards, or SIEM systems.
+
+```bash
+python3 scriptsnoop.py --path ./myproject --output report.json
+```
+
+![JSON Output](json_screenshot.png)
 
 ---
 
@@ -105,57 +139,57 @@ python scriptsnoop.py --path .
 
 **Scan a folder and show all findings:**
 ```bash
-python scriptsnoop.py --path ./myproject
+python3 scriptsnoop.py --path ./myproject
 ```
 
 **Show only CRITICAL and HIGH findings:**
 ```bash
-python scriptsnoop.py --path ./myproject --min-severity HIGH
+python3 scriptsnoop.py --path ./myproject --min-severity HIGH
 ```
 
 **Export findings as a JSON report:**
 ```bash
-python scriptsnoop.py --path ./myproject --output report.json
+python3 scriptsnoop.py --path ./myproject --output report.json
 ```
 
 **Export findings as a CSV file:**
 ```bash
-python scriptsnoop.py --path ./myproject --output report.csv
+python3 scriptsnoop.py --path ./myproject --output report.csv
 ```
 
 **Export findings as an HTML report (opens in any browser):**
 ```bash
-python scriptsnoop.py --path ./myproject --output report.html
+python3 scriptsnoop.py --path ./myproject --output report.html
 ```
 
 **Explicitly set format with `--format`:**
 ```bash
-python scriptsnoop.py --path ./myproject --output results.json --format json
+python3 scriptsnoop.py --path ./myproject --output results.json --format json
 ```
 
 **Scan only Python and shell files:**
 ```bash
-python scriptsnoop.py --path ./myproject --ext "*.py" "*.sh"
+python3 scriptsnoop.py --path ./myproject --ext "*.py" "*.sh"
 ```
 
 **Quiet mode — summary only, no per-finding output:**
 ```bash
-python scriptsnoop.py --path ./myproject --quiet
+python3 scriptsnoop.py --path ./myproject --quiet
 ```
 
 **Disable colors (useful for logging to a file):**
 ```bash
-python scriptsnoop.py --path ./myproject --no-color
+python3 scriptsnoop.py --path ./myproject --no-color
 ```
 
 **List all 27 detection rules:**
 ```bash
-python scriptsnoop.py --list-rules
+python3 scriptsnoop.py --list-rules
 ```
 
 **Combine flags:**
 ```bash
-python scriptsnoop.py --path ./myproject --min-severity HIGH --output report.html --quiet
+python3 scriptsnoop.py --path ./myproject --min-severity HIGH --output report.html --quiet
 ```
 
 ---
@@ -231,19 +265,19 @@ ScriptSnoop v2.0 includes 27 rules across 4 severity levels.
 
 ### JSON
 ```bash
-python scriptsnoop.py --path ./myproject --output report.json
+python3 scriptsnoop.py --path ./myproject --output report.json
 ```
 Produces a structured JSON file with scan metadata and all findings. Suitable for integrating with other security tools or dashboards.
 
 ### CSV
 ```bash
-python scriptsnoop.py --path ./myproject --output report.csv
+python3 scriptsnoop.py --path ./myproject --output report.csv
 ```
 Produces a spreadsheet-compatible file with columns: `rule_id`, `severity`, `category`, `file`, `line`, `description`, `content`.
 
 ### HTML
 ```bash
-python scriptsnoop.py --path ./myproject --output report.html
+python3 scriptsnoop.py --path ./myproject --output report.html
 ```
 Produces a standalone HTML dashboard you can open in any browser. Shows severity counts at the top and a full findings table. No internet connection required to view it.
 
@@ -281,7 +315,7 @@ jobs:
           python-version: '3.x'
 
       - name: Run ScriptSnoop
-        run: python scriptsnoop.py --path . --min-severity HIGH --no-color --quiet
+        run: python3 scriptsnoop.py --path . --min-severity HIGH --no-color --quiet
 ```
 
 This will automatically scan your repository on every push or pull request and fail the pipeline if any HIGH or CRITICAL issues are found.
@@ -324,7 +358,7 @@ Open `scriptsnoop.py` and add a new entry to the `RISKY_PATTERNS` list:
 },
 ```
 
-Then run `python scriptsnoop.py --list-rules` to confirm your rule appears.
+Then run `python3 scriptsnoop.py --list-rules` to confirm your rule appears.
 
 ---
 
@@ -332,8 +366,11 @@ Then run `python scriptsnoop.py --list-rules` to confirm your rule appears.
 
 ```
 scriptsnoop/
-├── scriptsnoop.py   # Main scanner — all logic in one file
-└── README.md        # This file
+├── scriptsnoop.py              # Main scanner — all logic in one file
+├── README.md                   # This file
+├── terminal_screenshot.png     # Terminal output example
+├── html_report_screenshot.png  # HTML report example
+└── json_screenshot.png         # JSON output example
 ```
 
 ---
